@@ -20,34 +20,15 @@ class RubyGrailsPlugin {
     def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPRUBY" ]
     def scm = [ url: "https://github.com/bobbywarner/grails-ruby" ]
 
-    def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before
-    }
-
-    def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
-    }
-
-    def doWithDynamicMethods = { ctx ->
-        // TODO Implement registering dynamic methods to classes (optional)
-    }
-
-    def doWithApplicationContext = { applicationContext ->
-        // TODO Implement post initialization spring config (optional)
-    }
-
+    def watchedResources = "file:./src/ruby/*.rb"
+    
     def onChange = { event ->
-        // TODO Implement code that is executed when any artefact that this plugin is
-        // watching is modified and reloaded. The event contains: event.source,
-        // event.application, event.manager, event.ctx, and event.plugin.
-    }
-
-    def onConfigChange = { event ->
-        // TODO Implement code that is executed when the project configuration changes.
-        // The event is the same as for 'onChange'.
-    }
-
-    def onShutdown = { event ->
-        // TODO Implement code that is executed when the application shuts down (optional)
+        def source = event.source
+        if(source instanceof org.springframework.core.io.FileSystemResource && source.file.name.endsWith('.rb')) {
+            source.file.withReader { reader ->
+                // Clojure plugin code to compile, need to find similar for JRuby
+                //Compiler.load reader
+            }
+        }
     }
 }
