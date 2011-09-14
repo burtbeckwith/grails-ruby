@@ -26,8 +26,8 @@ class RubyGrailsPlugin {
         def source = event.source
         if(source instanceof org.springframework.core.io.FileSystemResource && source.file.name.endsWith('.rb')) {
             source.file.withReader { reader ->
-                // Clojure plugin code to compile, need to find similar for JRuby
-                //Compiler.load reader
+                javax.script.ScriptEngine jruby = new javax.script.ScriptEngineManager().getEngineByName("jruby");
+                jruby.compile(reader);
             }
         }
     }
