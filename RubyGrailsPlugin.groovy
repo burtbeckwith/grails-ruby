@@ -20,6 +20,7 @@ class RubyGrailsPlugin {
     def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPRUBY" ]
     def scm = [ url: "https://github.com/bobbywarner/grails-ruby" ]
 
+    /*
     def watchedResources = "file:./src/ruby/*.rb"
     
     def onChange = { event ->
@@ -31,4 +32,5 @@ class RubyGrailsPlugin {
             }
         }
     }
+    */
 }
