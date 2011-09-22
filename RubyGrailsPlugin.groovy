@@ -20,7 +20,6 @@ class RubyGrailsPlugin {
     def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPRUBY" ]
     def scm = [ url: "https://github.com/bobbywarner/grails-ruby" ]
 
-    /*
     def watchedResources = "file:./src/ruby/*.rb"
     
     def onChange = { event ->
@@ -28,9 +27,8 @@ class RubyGrailsPlugin {
         if(source instanceof org.springframework.core.io.FileSystemResource && source.file.name.endsWith('.rb')) {
             source.file.withReader { reader ->
                 javax.script.ScriptEngine jruby = new javax.script.ScriptEngineManager().getEngineByName("jruby");
-                jruby.compile(reader);
+                jruby.eval(reader);
             }
         }
     }
-    */
 }
