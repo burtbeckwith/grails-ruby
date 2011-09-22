@@ -27,17 +27,34 @@ class RubyGrailsPlugin {
     def watchedResources = "file:./src/ruby/*.rb"
     
     def onChange = { event ->
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("jruby")
+        
         def source = event.source
         if(source instanceof FileSystemResource && source.file.name.endsWith('.rb')) {
             source.file.withReader { reader ->
-                ScriptEngine jruby = new ScriptEngineManager().getEngineByName("jruby");
-                jruby.eval(reader);
+                engine.eval(reader);
+                println "onChange: $source.file"
             }
         }
     }
     
     def doWithDynamicMethods = { ctx ->
-        ScriptEngine engine = new ScriptEngineManager().getEngineByName("jruby");
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("jruby")
+        
+        def rubyFiles
+        if(application.warDeployed) {
+            rubyFiles = parentCtx?.getResources("**/WEB-INF/ruby/*.rb")?.toList()
+        } else {
+            rubyFiles = plugin.watchedResources
+        }
+        
+        rubyFiles.each {
+            it.file.withReader { reader ->
+                engine.eval(reader)
+                println "doWith: $it.file"
+            }
+        }
+    
         application.allClasses*.metaClass*."getRuby" = {
             return engine
         }
