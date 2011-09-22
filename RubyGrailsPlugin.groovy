@@ -1,3 +1,7 @@
+import javax.script.ScriptEngine
+import javax.script.ScriptEngineManager
+import org.springframework.core.io.FileSystemResource
+
 class RubyGrailsPlugin {
     // the plugin version
     def version = "1.0.M1"
@@ -24,11 +28,18 @@ class RubyGrailsPlugin {
     
     def onChange = { event ->
         def source = event.source
-        if(source instanceof org.springframework.core.io.FileSystemResource && source.file.name.endsWith('.rb')) {
+        if(source instanceof FileSystemResource && source.file.name.endsWith('.rb')) {
             source.file.withReader { reader ->
-                javax.script.ScriptEngine jruby = new javax.script.ScriptEngineManager().getEngineByName("jruby");
+                ScriptEngine jruby = new ScriptEngineManager().getEngineByName("jruby");
                 jruby.eval(reader);
             }
+        }
+    }
+    
+    def doWithDynamicMethods = { ctx ->
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("jruby");
+        application.allClasses*.metaClass*."getRuby" = {
+            return engine
         }
     }
 }
