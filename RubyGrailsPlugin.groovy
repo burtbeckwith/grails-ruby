@@ -33,7 +33,6 @@ class RubyGrailsPlugin {
         if(source instanceof FileSystemResource && source.file.name.endsWith('.rb')) {
             source.file.withReader { reader ->
                 engine.eval(reader);
-                println "onChange: $source.file"
             }
         }
     }
@@ -51,7 +50,6 @@ class RubyGrailsPlugin {
         rubyFiles.each {
             it.file.withReader { reader ->
                 engine.eval(reader)
-                println "doWith: $it.file"
             }
         }
     
