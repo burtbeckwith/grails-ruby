@@ -14,7 +14,7 @@ class RubyGrailsPlugin {
         "grails-app/views/error.gsp"
     ]
 
-    def title = "Ruby Plugin" // Headline display name of the plugin
+    def title = "Ruby" // Headline display name of the plugin
     def author = "Bobby Warner"
     def authorEmail = "bobbywarner@gmail.com"
     def description = "Plugin for using Ruby code in Grails via JRuby."
