@@ -5,6 +5,11 @@ Grails Ruby is a plugin built to use the [JRuby][JRuby] implementation of the Ru
 [Grails]: http://grails.org/
 [JRuby]: http://jruby.org/
 	
+Documentation
+---
+
+http://grails.org/plugin/ruby
+
 License
 ---
 
