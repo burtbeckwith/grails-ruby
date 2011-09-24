@@ -9,10 +9,6 @@ class RubyGrailsPlugin {
     def grailsVersion = "1.2 > *"
     // the other plugins this plugin depends on
     def dependsOn = [:]
-    // resources that are excluded from plugin packaging
-    def pluginExcludes = [
-        "grails-app/views/error.gsp"
-    ]
 
     def title = "Ruby" // Headline display name of the plugin
     def author = "Bobby Warner"
